@@ -1,0 +1,26 @@
+node_modules
+.next
+out
+build
+.DS_Store
+*.pem
+npm-debug.log*
+.env*
+.vercel
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Impeccable working files (config.json is committed, everything else is local)
+.impeccable/mocks
+.impeccable/surfaces
+.impeccable/review
+.impeccable/build
+.impeccable/direction-contract.md
+
+
+# taste skills agent folder
+.agents/
+.claude/
+.minimax/
+.aider-desk/
+skills/
