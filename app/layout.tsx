@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Archivo, Martian_Mono } from 'next/font/google'
-import { SiteLoader } from '@/components/site/site-loader'
+import { PageProgress } from '@/components/site/page-progress'
 import './globals.css'
 
 const archivo = Archivo({
@@ -72,7 +72,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               "setTimeout(function(){if(!window.__slateMotion){document.documentElement.classList.add('reveal-fallback');}},2500);",
           }}
         />
-        <SiteLoader />
+        <PageProgress />
         {children}
       </body>
     </html>

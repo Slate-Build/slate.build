@@ -1,6 +1,7 @@
 import { Cursor } from '@/components/site/cursor'
 import { Footer } from '@/components/site/footer'
 import { Nav } from '@/components/site/nav'
+import { SiteLoader } from '@/components/site/site-loader'
 import { Contact } from '@/components/sections/contact'
 import { Hero } from '@/components/sections/hero'
 import { Process } from '@/components/sections/process'
@@ -11,6 +12,7 @@ import { Work } from '@/components/sections/work'
 export default function Home() {
   return (
     <>
+      <SiteLoader />
       <Nav />
       <Cursor />
       <main>

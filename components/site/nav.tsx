@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
 import { availability } from '@/content/studio'
+import { NavMark } from '@/components/site/nav-mark'
 
 const LINKS = [
   { label: 'Work', href: '/#work' },
@@ -67,19 +68,22 @@ export function Nav() {
           >
             <Link
               href="/"
-              className="tap group relative flex items-baseline gap-2"
+              className="tap group relative flex items-center gap-2.5 md:gap-3"
               aria-label="SLATE BUILD — home"
             >
-              <span className="flex items-baseline gap-[0.14em]">
-                <span className="display text-[1.35rem] leading-none tracking-[-0.045em] md:text-[1.6rem]">
-                  SLATE
+              <NavMark />
+              <span className="flex items-baseline gap-1.5">
+                <span className="flex items-baseline gap-[0.14em]">
+                  <span className="display text-[1.35rem] leading-[0.84] tracking-[-0.045em] md:text-[1.6rem]">
+                    SLATE
+                  </span>
+                  <span className="display text-[1.35rem] leading-[0.84] tracking-[-0.045em] text-accent md:text-[1.6rem]">
+                    BUILD
+                  </span>
                 </span>
-                <span className="display text-[1.35rem] leading-none tracking-[-0.045em] text-accent md:text-[1.6rem]">
-                  BUILD
+                <span className="mono text-[1rem] leading-none text-ink/45 transition-colors group-hover:text-accent">
+                  ®
                 </span>
-              </span>
-              <span className="mono text-[0.5rem] text-ink/45 transition-colors group-hover:text-accent">
-                ®
               </span>
             </Link>
 

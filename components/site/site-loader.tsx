@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { markLoaderComplete, markLoaderPresent } from '@/lib/loader-bus'
+import { isLoaderComplete, markLoaderComplete, markLoaderPresent } from '@/lib/loader-bus'
 
 /* ─── editable sequence ─── */
 const numberSequence = ['00', '27', '54', '81', '99']
@@ -34,6 +34,9 @@ gsap.registerPlugin(useGSAP)
  * and that sheet travels upward to reveal the page underneath.
  */
 export function SiteLoader() {
+  /* Skip immediately when returning to `/` via client navigation after initial load. */
+  const [skip] = useState(() => isLoaderComplete())
+
   /* ── number animation refs ── */
   const containerRef = useRef<HTMLDivElement>(null)
   const numberBlockRef = useRef<HTMLDivElement>(null)
@@ -94,8 +97,9 @@ export function SiteLoader() {
 
   /* Announce the loader before any page effect can ask for it. */
   useLayoutEffect(() => {
+    if (skip) return
     markLoaderPresent()
-  }, [])
+  }, [skip])
 
   /* Release the page if the loader ever goes away. */
   useEffect(() => {
@@ -107,6 +111,7 @@ export function SiteLoader() {
   /* Failsafe: the page is never allowed to stay blocked, whatever happens to
      the timeline. */
   useEffect(() => {
+    if (skip) return
     const failsafe = window.setTimeout(() => {
       const container = containerRef.current
       if (!container || container.style.display === 'none') return
@@ -186,7 +191,7 @@ export function SiteLoader() {
   /* ─── master GSAP timeline ─── */
   useGSAP(
     () => {
-      if (!containerRef.current || !numberBlockRef.current) return
+      if (skip || !containerRef.current || !numberBlockRef.current) return
 
       /* ── reduced motion: no loader at all ── */
       if (window.matchMedia(REDUCED_MOTION_QUERY).matches) {
@@ -289,8 +294,10 @@ export function SiteLoader() {
         curtainStart + CURTAIN_DURATION,
       )
     },
-    { scope: containerRef, dependencies: [] },
+    { scope: containerRef, dependencies: [skip] },
   )
+
+  if (skip) return null
 
   return (
     <div

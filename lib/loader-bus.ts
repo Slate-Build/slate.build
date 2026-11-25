@@ -32,6 +32,11 @@ export function hasLoader(): boolean {
   return present
 }
 
+/** True once the loader has completed during this page session. */
+export function isLoaderComplete(): boolean {
+  return completed
+}
+
 /**
  * Runs the callback once the loader is done. If the loader already finished,
  * the callback runs immediately. Returns an unsubscribe function.
